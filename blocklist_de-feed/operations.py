@@ -6,8 +6,8 @@
 
 from connectors.core.connector import get_logger, ConnectorError
 import requests
-from datetime import timedelta, datetime
 from time import sleep
+import arrow
 
 try:
     from integrations.crudhub import trigger_ingest_playbook
@@ -69,7 +69,7 @@ def make_request(config, url, parameters=None, method='GET'):
 
 def convert_to_unixtime(last_added_time):
     try:
-        date_time = last_added_time.strip('Z').strip('.0')
+        date_time = arrow.get(last_added_time).strftime("%Y-%m-%dT%H:%M:%S")
         return date_time
     except Exception as Err:
         logger.exception('{0}'.format(str(Err)))
@@ -105,7 +105,6 @@ def fetch_indicators(config, params=None, **kwargs):
 
 def _check_health(config):
     try:
-        fetch_time = (datetime.utcnow() - timedelta(hours=1)).replace(microsecond=0).isoformat()
         params = {'service': 'Bots'}
         res = fetch_indicators(config, params=params)
         if res:
