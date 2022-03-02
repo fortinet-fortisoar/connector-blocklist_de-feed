@@ -19,6 +19,101 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
+          "name": "Get Blocklist IP",
+          "aliasName": null,
+          "tag": "#Blocklist.de Feed",
+          "description": "Fetch list of IPs having run attacks on the service from the Blocklist.de.",
+          "isActive": false,
+          "debug": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1646201865,
+          "collection": "/api/3/workflow_collections/59811602-084e-445b-bc23-edd5da152945",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/ca6748eb-0826-40b3-ba9e-f8253903e20a",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Alerts",
+              "description": null,
+              "arguments": {
+                "route": "8e5a6c68-3a39-47ff-a247-6466c11e37f8",
+                "title": "Blocklist.de Feed: Fetch Indicators",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "20",
+              "left": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "ca6748eb-0826-40b3-ba9e-f8253903e20a"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Blocklist IPs",
+              "description": null,
+              "arguments": {
+                "name": "Blocklist.de Feed",
+                "config": "4872fb89-a547-4481-b3e0-d7512a654145",
+                "params": {
+                  "service": "Strong IPs",
+                  "output_mode": "Return as a JSON"
+                },
+                "version": "1.0.0",
+                "connector": "blocklist_de-feed",
+                "operation": "get_ips_by_service",
+                "operationTitle": "Get Blocklist IPs",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "status": null,
+              "top": "120",
+              "left": "180",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "uuid": "4cfbd238-8427-4802-997f-dfb60b5b9931"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Alerts -> Fetch Indicators",
+              "targetStep": "/api/3/workflow_steps/4cfbd238-8427-4802-997f-dfb60b5b9931",
+              "sourceStep": "/api/3/workflow_steps/ca6748eb-0826-40b3-ba9e-f8253903e20a",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "c0c483e7-2909-4242-8350-21c733ce3c9c"
+            }
+          ],
+          "priority": null,
+          "uuid": "20ec2d64-bcbd-4ed6-80e5-e452b1b10b5c",
+          "recordTags": [
+            "Blocklist.de",
+            "blocklist_de-feed"
+          ],
+          "id": "581",
+          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "createDate": 1646201781.311333,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1646201894.756026,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
           "name": "> Blocklist.de Feed > Fetch",
           "aliasName": null,
           "tag": null,
@@ -31,7 +126,7 @@
             "lastPullTime"
           ],
           "synchronous": false,
-          "lastModifyDate": 1645595511,
+          "lastModifyDate": 1646198941,
           "collection": "/api/3/workflow_collections/59811602-084e-445b-bc23-edd5da152945",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/41851326-186c-48bd-8a3d-bb5e91fcb1ab",
@@ -54,10 +149,8 @@
               "name": "Configuration",
               "description": null,
               "arguments": {
-                "time": "",
                 "service": "Bots",
-                "curr_timestamp": "{{arrow.utcnow().shift(minutes=-2).format('YYYY-MM-DDTHH:mm:ss.ssss')}}Z",
-                "time_supported_services": "[\"SSH\", \"Mail\", \"Apache\", \"IMAP\", \"FTP\", \"Bots\"]"
+                "curr_timestamp": "{{arrow.utcnow().format('YYYY-MM-DDTHH:mm:ss.ssss')}}Z"
               },
               "status": null,
               "top": "165",
@@ -74,7 +167,7 @@
                   "input": {
                     "params": []
                   },
-                  "_configuration_schema": "[\n  {\n    \"title\": \"Service Type\",\n    \"name\": \"service\",\n    \"visible\": true,\n    \"required\": true,\n    \"editable\": true,\n    \"type\": \"select\",\n    \"options\": [\n      \"All\",\n      \"SSH\",\n      \"Mail\",\n      \"Apache\",\n      \"IMAP\",\n      \"FTP\",\n      \"Bots\",\n      \"IRC Bot\",\n      \"SIP\",\n      \"Strong IPs\",\n      \"Brute Force Login\"\n    ],\n    \"value\": \"Strong IPs\",\n    \"tooltip\": \"Supported service types to Last Added Time parameter: SSH, Mail, Apache, IMAP, FTP, Bots\",\n    \"description\": \"Select Blocklist.de service type to fetch specific service block listed IPs. You can choose between All, SSH, Mail, Apache, IMAP, FTP, SIP, IRC Bot, Bots, Strong IPs and Brute Force Login. By default, this is set to Strong IPs.\"\n  },\n  {\n    \"title\": \"Last Added Time\",\n    \"name\": \"time\",\n    \"required\": false,\n    \"visible\": true,\n    \"editable\": true,\n    \"type\": \"datetime\",\n    \"tooltip\": \"To get only the last added IP-Addresses. Supported Service Types are: SSH, Mail, Apache, IMAP, FTP, Bots\",\n    \"description\": \"Specify time to get only the last added IP-Addresses. Supported Service Types are: SSH, Mail, Apache, IMAP, FTP, Bots\"\n  },\n  {\n    \"title\": \"Confidence\",\n    \"name\": \"confidence\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default Confidence score to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 50,\n    \"validation\": {\n      \"minlength\": 0,\n      \"maxlength\": 100\n    }\n  },\n  {\n    \"title\": \"Reputation\",\n    \"name\": \"reputation\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default Reputation to be set for the feeds\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\n      \"Good\",\n      \"Suspicious\",\n      \"Malicious\",\n      \"No Reputation Available\",\n      \"TBD\"\n    ],\n    \"value\": \"Suspicious\"\n  },\n  {\n    \"title\": \"TLP\",\n    \"name\": \"tlp\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default TLP to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\n      \"Red\",\n      \"Amber\",\n      \"Green\",\n      \"White\"\n    ],\n    \"value\": \"White\"\n  },\n  {\n    \"title\": \"Maximum Age (in days)\",\n    \"name\": \"expiry\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default age for the feeds. The indicator expires on 'valid_until' date unless a different expiry is specified here. If specified, the indicator will be marked expired on valid_from + expiry.\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true\n  }\n]"
+                  "_configuration_schema": "[\n  {\n    \"title\": \"Service Type\",\n    \"name\": \"service\",\n    \"visible\": true,\n    \"required\": true,\n    \"editable\": true,\n    \"type\": \"select\",\n    \"options\": [\n      \"SSH\",\n      \"Mail\",\n      \"Apache\",\n      \"IMAP\",\n      \"FTP\",\n      \"Bots\",\n      \"VOIP\"\n    ],\n    \"value\": \"Bots\",\n    \"description\": \"Select Blocklist.de service type to fetch specific service block listed IPs. You can choose between SSH, Mail, Apache, IMAP, FTP, Bots, VOIP. By default, this is set to Strong IPs.\"\n  },\n  {\n    \"title\": \"Confidence\",\n    \"name\": \"confidence\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default Confidence score to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 50,\n    \"validation\": {\n      \"minlength\": 0,\n      \"maxlength\": 100\n    }\n  },\n  {\n    \"title\": \"Reputation\",\n    \"name\": \"reputation\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default Reputation to be set for the feeds\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\n      \"Good\",\n      \"Suspicious\",\n      \"Malicious\",\n      \"No Reputation Available\",\n      \"TBD\"\n    ],\n    \"value\": \"Suspicious\"\n  },\n  {\n    \"title\": \"TLP\",\n    \"name\": \"tlp\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default TLP to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\n      \"Red\",\n      \"Amber\",\n      \"Green\",\n      \"White\"\n    ],\n    \"value\": \"White\"\n  },\n  {\n    \"title\": \"Maximum Age (in days)\",\n    \"name\": \"expiry\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default age for the feeds. The indicator expires on 'valid_until' date unless a different expiry is specified here. If specified, the indicator will be marked expired on valid_from + expiry.\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true\n  }\n]"
                 }
               },
               "status": null,
@@ -117,7 +210,7 @@
                 "name": "Blocklist.de Feed",
                 "config": "4872fb89-a547-4481-b3e0-d7512a654145",
                 "params": {
-                  "time": "{{vars.input.params.lastPullTime if vars.input.params.lastPullTime and vars.service in vars.time_supported_services else None}}",
+                  "time": "{{vars.input.params.lastPullTime if vars.input.params.lastPullTime else None}}",
                   "service": "{{vars.service}}",
                   "output_mode": "Create as Feed Records in FortiSOAR",
                   "create_pb_id": "8c5e46b0-ee96-4981-8135-d5f077f6a54a"
@@ -208,7 +301,7 @@
           "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
           "createDate": 1645424946.969751,
           "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645595511.234649,
+          "modifyDate": 1646198941.756578,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
@@ -219,7 +312,7 @@
           "name": "> Blocklist.de Feed > Create",
           "aliasName": null,
           "tag": null,
-          "description": "Fetch list of blocklist IP indicators feed from the Blocklist.de service.",
+          "description": "Create Indicators from Blocklist.de service.",
           "isActive": false,
           "debug": true,
           "singleRecordExecution": false,
@@ -229,7 +322,7 @@
             "service"
           ],
           "synchronous": false,
-          "lastModifyDate": 1645595574,
+          "lastModifyDate": 1646199043,
           "collection": "/api/3/workflow_collections/59811602-084e-445b-bc23-edd5da152945",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/77df9201-a09d-449b-8cb2-769c148a9a0d",
@@ -242,8 +335,7 @@
                 "step_variables": {
                   "input": {
                     "params": []
-                  },
-                  "_configuration_schema": "[\n  {\n    \"title\": \"Service Type\",\n    \"name\": \"service\",\n    \"visible\": true,\n    \"required\": true,\n    \"editable\": true,\n    \"type\": \"select\",\n    \"options\": [\n      \"All\",\n      \"SSH\",\n      \"Mail\",\n      \"Apache\",\n      \"IMAP\",\n      \"FTP\",\n      \"Bots\",\n      \"IRC Bot\",\n      \"SIP\",\n      \"Strong IPs\",\n      \"Brute Force Login\"\n    ],\n    \"value\": \"Strong IPs\",\n    \"tooltip\": \"Supported service types to Last Added Time parameter: SSH, Mail, Apache, IMAP, FTP, Bots\",\n    \"description\": \"Select Blocklist.de service type to fetch specific service block listed IPs. You can choose between All, SSH, Mail, Apache, IMAP, FTP, SIP, IRC Bot, Bots, Strong IPs and Brute Force Login. By default, this is set to Strong IPs.\"\n  },\n  {\n    \"title\": \"Last Added Time\",\n    \"name\": \"time\",\n    \"required\": false,\n    \"visible\": true,\n    \"editable\": true,\n    \"type\": \"datetime\",\n    \"tooltip\": \"To get only the last added IP-Addresses. Supported Service Types are: SSH, Mail, Apache, IMAP, FTP, Bots\",\n    \"description\": \"Specify time to get only the last added IP-Addresses. Supported Service Types are: SSH, Mail, Apache, IMAP, FTP, Bots\"\n  },\n  {\n    \"title\": \"Confidence\",\n    \"name\": \"confidence\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default Confidence score to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 50,\n    \"validation\": {\n      \"minlength\": 0,\n      \"maxlength\": 100\n    }\n  },\n  {\n    \"title\": \"Reputation\",\n    \"name\": \"reputation\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default Reputation to be set for the feeds\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\n      \"Good\",\n      \"Suspicious\",\n      \"Malicious\",\n      \"No Reputation Available\",\n      \"TBD\"\n    ],\n    \"value\": \"Suspicious\"\n  },\n  {\n    \"title\": \"TLP\",\n    \"name\": \"tlp\",\n    \"type\": \"select\",\n    \"tooltip\": \"Default TLP to be set for the feeds\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true,\n    \"options\": [\n      \"Red\",\n      \"Amber\",\n      \"Green\",\n      \"White\"\n    ],\n    \"value\": \"White\"\n  },\n  {\n    \"title\": \"Maximum Age (in days)\",\n    \"name\": \"expiry\",\n    \"type\": \"integer\",\n    \"tooltip\": \"Default age for the feeds. The indicator expires on 'valid_until' date unless a different expiry is specified here. If specified, the indicator will be marked expired on valid_from + expiry.\",\n    \"required\": false,\n    \"editable\": true,\n    \"visible\": true\n  }\n]"
+                  }
                 }
               },
               "status": null,
@@ -288,7 +380,7 @@
                 "resource": {
                   "tLP": "{% if vars.tlp %}{{ vars.tlp | resolveRange(vars.tlp_map)}}{% endif %}",
                   "value": "{{vars.item }}",
-                  "source": "Blocklist.de {{vars.service}}",
+                  "source": "Blocklist.de",
                   "__replace": "false",
                   "expiresOn": "{{ arrow.get().int_timestamp + (vars.expiry | int)*24*60*60 }}",
                   "confidence": "{% if vars.confidence %}{{ vars.confidence }}{% else %}{{ vars.item.labels[2].split(\"-\")[-1] }}{% endif %}",
@@ -329,15 +421,6 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Configuration",
-              "targetStep": "/api/3/workflow_steps/6c01a627-5c12-4404-a283-33b2d223485f",
-              "sourceStep": "/api/3/workflow_steps/77df9201-a09d-449b-8cb2-769c148a9a0d",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "d04aad07-25c6-4b11-bf5e-1dfe962ee48f"
-            },
-            {
-              "@type": "WorkflowRoute",
               "name": "Configuration -> Resolve Range",
               "targetStep": "/api/3/workflow_steps/bf219d24-cf42-440e-926c-a9434b92de68",
               "sourceStep": "/api/3/workflow_steps/6c01a627-5c12-4404-a283-33b2d223485f",
@@ -353,6 +436,15 @@
               "label": null,
               "isExecuted": false,
               "uuid": "916b9550-13fa-4d5f-b7c9-9c932a7849d9"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/6c01a627-5c12-4404-a283-33b2d223485f",
+              "sourceStep": "/api/3/workflow_steps/77df9201-a09d-449b-8cb2-769c148a9a0d",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "d04aad07-25c6-4b11-bf5e-1dfe962ee48f"
             }
           ],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -367,7 +459,7 @@
           "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
           "createDate": 1645168763.64247,
           "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645595573.845063,
+          "modifyDate": 1646199042.86901,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
@@ -424,7 +516,7 @@
                 "config": "4872fb89-a547-4481-b3e0-d7512a654145",
                 "params": {
                   "time": "",
-                  "service": "Apache",
+                  "service": "Bots",
                   "output_mode": "Return as a JSON"
                 },
                 "version": "1.0.0",
@@ -659,10 +751,10 @@
     }
   ],
   "exported_tags": [
-    "dataingestion",
-    "fetch",
     "Blocklist.de",
     "blocklist_de-feed",
+    "dataingestion",
+    "fetch",
     "create",
     "ingest"
   ]

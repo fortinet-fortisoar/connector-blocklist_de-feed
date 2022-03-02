@@ -32,8 +32,8 @@
         "required": true,
         "editable": true,
         "visible": true,
-        "placeholder": "https://lists.blocklist.de",
-        "value": "https://lists.blocklist.de",
+        "placeholder": "https://api.blocklist.de",
+        "value": "https://api.blocklist.de",
         "description": "Server URL of the Blocklist.de Feed Security server to which you will connect and perform the automated operations."
       },
       {
@@ -54,7 +54,74 @@
       "title": "Fetch Indicators",
       "category": "investigation",
       "annotation": "fetch_indicators",
-      "description": "Fetch list of IPs indicators feed from the Blocklist.de service.",
+      "description": "Fetch only the last added IPs indicators feed from the Blocklist.de service.",
+      "parameters": [
+        {
+          "title": "Last Added Time",
+          "name": "time",
+          "required": false,
+          "visible": true,
+          "editable": true,
+          "type": "datetime",
+          "tooltip": "To get only the last added IP-Addresses. Default: last 48 hours",
+          "description": "Specify time to get only the last added IP-Addresses. Supported Service Types are: SSH, Mail, Apache, IMAP, FTP, Bots and VOIP. Default last 48 hours IPs reported."
+        },
+        {
+          "title": "Service Type",
+          "name": "service",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "select",
+          "options": [
+            "SSH",
+            "Mail",
+            "Apache",
+            "IMAP",
+            "FTP",
+            "Bots",
+            "VOIP"
+          ],
+          "description": "Select Blocklist.de service type to fetch specific service block listed IPs. You can choose between SSH, Mail, Apache, IMAP, FTP, Bots, and VOIP."
+        },
+        {
+          "title": "Process Response As",
+          "name": "output_mode",
+          "visible": true,
+          "required": false,
+          "editable": true,
+          "type": "select",
+          "options": [
+            "Create as Feed Records in FortiSOAR",
+            "Return as a JSON"
+          ],
+          "value": "Return as a JSON",
+          "tooltip": "Select the method of returning the Feed Data information. You can choose between the data being create as Feed records in FortiSOAR or returned in the JSON format (Return as a JSON).",
+          "description": "Select the method of returning the Feed Data information. You can choose between the data being create as Feed records in FortiSOAR or returned in the JSON format (Return as a JSON).",
+          "onchange": {
+            "Create as Feed Records in FortiSOAR": [
+              {
+                "title": "Record Creation Playbook IRI",
+                "description": "",
+                "type": "text",
+                "name": "create_pb_id",
+                "required": true,
+                "editable": true,
+                "visible": true
+              }
+            ]
+          }
+        }
+      ],
+      "enabled": true,
+      "output_schema": []
+    },
+    {
+      "operation": "get_ips_by_service",
+      "title": "Get Blocklist IPs",
+      "category": "investigation",
+      "annotation": "get_ips_by_service",
+      "description": "Fetch list of IPs having run attacks on the service from the Blocklist.de.",
       "parameters": [
         {
           "title": "Service Type",
@@ -76,19 +143,8 @@
             "Strong IPs",
             "Brute Force Login"
           ],
-          "value": "Strong IPs",
-          "tooltip": "Supported service types to Last Added Time parameter: SSH, Mail, Apache, IMAP, FTP, Bots",
-          "description": "Select Blocklist.de service type to fetch specific service block listed IPs. You can choose between All, SSH, Mail, Apache, IMAP, FTP, SIP, IRC Bot, Bots, Strong IPs and Brute Force Login. By default, this is set to Strong IPs."
-        },
-        {
-          "title": "Last Added Time",
-          "name": "time",
-          "required": false,
-          "visible": true,
-          "editable": true,
-          "type": "datetime",
-          "tooltip": "To get only the last added IP-Addresses. Supported Service Types are: SSH, Mail, Apache, IMAP, FTP, Bots",
-          "description": "Specify time to get only the last added IP-Addresses. Supported Service Types are: SSH, Mail, Apache, IMAP, FTP, Bots"
+          "value": "Bots",
+          "description": "Select Blocklist.de service type to fetch specific service block listed IPs. You can choose between All, SSH, Mail, Apache, IMAP, FTP, SIP, IRC Bot, Bots, Strong IPs and Brute Force Login. By default, this is set to Bots."
         },
         {
           "title": "Process Response As",

@@ -25,13 +25,14 @@ SERVICE_MAPPING = {
     "IMAP": 'imap',
     "FTP": 'ftp',
     "SIP": 'sip',
-    "VOIP": "voip",  # not added
+    "VOIP": "voip",
     "Bots": 'bots',
     "IRC Bot": "ircbot",
     "Strong IPs": 'strongips',
     "Brute Force Login": 'bruteforcelogin'
 }
 MAX_ATTEMPTS = 3
+LAST_HOURS = 48
 
 
 def validate_response(response):
@@ -47,6 +48,7 @@ def validate_response(response):
 
 def make_request(config, url, parameters=None, method='GET'):
     verify_ssl = config.get('verify_ssl')
+    logger.debug("url: {}".format(url))
     attempt = 1
     status_code = 404
     api_response = None
@@ -69,29 +71,31 @@ def make_request(config, url, parameters=None, method='GET'):
 
 def convert_to_unixtime(last_added_time):
     try:
-        date_time = arrow.get(last_added_time).strftime("%Y-%m-%dT%H:%M:%S")
+        if last_added_time:
+            date_time = arrow.get(last_added_time).strftime("%Y-%m-%dT%H:%M:%S")
+        else:
+            date_time = arrow.get().shift(hours=+LAST_HOURS).strftime("%Y-%m-%dT%H:%M:%S")
         return date_time
     except Exception as Err:
         logger.exception('{0}'.format(str(Err)))
         raise ConnectorError('{0}'.format(str(Err)))
 
 
-def fetch_indicators(config, params=None, **kwargs):
+def get_indicators(config, params=None, **kwargs):
     try:
-
-        service = params.get('service', 'strongips')
+        service = params.get('service', None)
         output_mode = params.get('output_mode')
         last_added_time = params.get('time', None)
         create_pb_id = params.get("create_pb_id")
-        query_param = {}
+        server_url = config.get('server_url').strip('/')
         if last_added_time:
-            new_time = convert_to_unixtime(last_added_time)
-            url = 'https://api.blocklist.de/getlast.php?time={last_added_time}'.format(
-                last_added_time=new_time) + '&service={service}'.format(service=SERVICE_MAPPING.get(service))
+            url = '{server_url}/getlast.php?time={last_added_time}'.format(server_url=server_url,
+                                                                           last_added_time=last_added_time)
+            if service:
+                url += '&service={service}'.format(service=SERVICE_MAPPING.get(service))
         else:
-            server_url = config.get('server_url')
-            url = server_url.strip('/') + '/lists/{service}.txt'.format(service=SERVICE_MAPPING.get(service))
-        api_response = make_request(config, url, parameters=query_param)
+            url = server_url + '/lists/{service}.txt'.format(service=SERVICE_MAPPING.get(service))
+        api_response = make_request(config, url)
         res = validate_response(api_response)
         ips = list(map(lambda x: x.strip(''), res.strip().split("\n"))) if res else []
         if output_mode == 'Create as Feed Records in FortiSOAR':
@@ -103,16 +107,32 @@ def fetch_indicators(config, params=None, **kwargs):
         raise ConnectorError(str(e))
 
 
+def fetch_indicators(config, params, **kwargs):
+    try:
+        last_added_time = params.get('time')
+        new_time = convert_to_unixtime(last_added_time)
+        params.update({'time': new_time})
+        return get_indicators(config, params, **kwargs)
+    except Exception as e:
+        raise ConnectorError(e)
+
+
+def get_ips_by_service(config, params, **kwargs):
+    return get_indicators(config, params, **kwargs)
+
+
 def _check_health(config):
     try:
-        params = {'service': 'Bots'}
-        res = fetch_indicators(config, params=params)
-        if res:
+        server_url = config.get('server_url')
+        url = server_url.strip('/') + '/lists/{service}.txt'.format(service=SERVICE_MAPPING.get('Bots'))
+        api_response = make_request(config, url)
+        if api_response.ok:
             return True
     except Exception as e:
         raise ConnectorError(str(e))
 
 
 operations = {
-    'fetch_indicators': fetch_indicators
+    'fetch_indicators': fetch_indicators,
+    'get_ips_by_service': get_ips_by_service
 }
