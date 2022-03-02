@@ -54,10 +54,10 @@
       "title": "Fetch Indicators",
       "category": "investigation",
       "annotation": "fetch_indicators",
-      "description": "Fetch only the last added IPs indicators feed from the Blocklist.de service.",
+      "description": "Fetched IPs added after the time specified as \"Added After\". Defaults to the IPs added in the last 48 hours.",
       "parameters": [
         {
-          "title": "Last Added Time",
+          "title": "Added After",
           "name": "time",
           "required": false,
           "visible": true,
@@ -118,7 +118,7 @@
     },
     {
       "operation": "get_ips_by_service",
-      "title": "Get Blocklist IPs",
+      "title": "Fetch All Blocklist IPs",
       "category": "investigation",
       "annotation": "get_ips_by_service",
       "description": "Fetch list of IPs having run attacks on the service from the Blocklist.de.",

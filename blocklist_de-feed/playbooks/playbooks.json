@@ -61,7 +61,7 @@
             },
             {
               "@type": "WorkflowStep",
-              "name": "Get Blocklist IPs",
+              "name": "Fetch All Blocklist IPs",
               "description": null,
               "arguments": {
                 "name": "Blocklist.de Feed",
@@ -73,7 +73,7 @@
                 "version": "1.0.0",
                 "connector": "blocklist_de-feed",
                 "operation": "get_ips_by_service",
-                "operationTitle": "Get Blocklist IPs",
+                "operationTitle": "Fetch All Blocklist IPs",
                 "step_variables": {
                   "output_data": "{{vars.result}}"
                 }
@@ -470,7 +470,7 @@
           "name": "Fetch Indicators",
           "aliasName": null,
           "tag": "#Blocklist.de Feed",
-          "description": "Fetch list of IPs indicators feed from the Blocklist.de service.",
+          "description": "Fetched IPs added after the time specified as \"Added After\". Defaults to the IPs added in the last 48 hours.",
           "isActive": false,
           "debug": true,
           "singleRecordExecution": false,

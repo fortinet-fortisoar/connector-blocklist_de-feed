@@ -46,7 +46,7 @@ def validate_response(response):
         'Fail To request API {0} response is : {1}'.format(str(response.url), str(response.content)))
 
 
-def make_request(config, url, parameters=None, method='GET'):
+def make_request(config, url, parameters=None, method='GET', health_call=False):
     verify_ssl = config.get('verify_ssl')
     logger.debug("url: {}".format(url))
     attempt = 1
@@ -58,7 +58,8 @@ def make_request(config, url, parameters=None, method='GET'):
             if api_response.ok or api_response.status_code == status_code:
                 return api_response
         except Exception as e:
-            logger.exception(e)
+            if health_call:
+                raise ConnectorError(e)
             if 'read timed out' in str(e).lower():
                 attempt += 1
                 sleep(1)
@@ -108,13 +109,10 @@ def get_indicators(config, params=None, **kwargs):
 
 
 def fetch_indicators(config, params, **kwargs):
-    try:
-        last_added_time = params.get('time')
-        new_time = convert_to_unixtime(last_added_time)
-        params.update({'time': new_time})
-        return get_indicators(config, params, **kwargs)
-    except Exception as e:
-        raise ConnectorError(e)
+    last_added_time = params.get('time')
+    new_time = convert_to_unixtime(last_added_time)
+    params.update({'time': new_time})
+    return get_indicators(config, params, **kwargs)
 
 
 def get_ips_by_service(config, params, **kwargs):
@@ -122,14 +120,11 @@ def get_ips_by_service(config, params, **kwargs):
 
 
 def _check_health(config):
-    try:
-        server_url = config.get('server_url')
-        url = server_url.strip('/') + '/lists/{service}.txt'.format(service=SERVICE_MAPPING.get('Bots'))
-        api_response = make_request(config, url)
-        if api_response.ok:
-            return True
-    except Exception as e:
-        raise ConnectorError(str(e))
+    server_url = config.get('server_url')
+    url = server_url.strip('/') + '/lists/{service}.txt'.format(service=SERVICE_MAPPING.get('Bots'))
+    api_response = make_request(config, url, health_call=True)
+    if api_response.ok:
+        return True
 
 
 operations = {
