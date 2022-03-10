@@ -12,7 +12,7 @@
   "icon_large_name": "BlockList_de_80x80.png",
   "ingestion_supported": true,
   "tags": [
-    "threatintel-inbound"
+    "ThreatIntel"
   ],
   "ingestion_modes": [
     "scheduled"
