@@ -1,7 +1,7 @@
 {
   "name": "blocklist_de-feed",
   "label": "Blocklist.de Feed",
-  "description": "Blocklist.de is a free and voluntary service provided by a Fraud/Abuse-specialist, whose servers are often attacked via SSH-, Mail-Login-, FTP-, Webserver- and other services. This connector facilitates automated operations related to fetching the list of blocklisted IP addresses of services.",
+  "description": "Blocklist.de is a free and voluntary service provided by a Fraud/Abuse-specialist, whose servers are often attacked via SSH-, Mail-Login-, FTP-, Webserver- and other services. This connector facilitates automated operations related to fetching the list of blocklisted IP addresses of services and ingestion of daily threat feeds. This connector has a dependency on the <a href=\"/content-hub/all-content/?contentType=solutionpack&amp;tag=ThreatIntelManagement\" target=\"_blank\" rel=\"noopener\">Threat Intel Management Solution Pack</a>. Install the Solution Pack before enabling ingestion of Threat Feeds from this source.",
   "publisher": "Fortinet",
   "cs_approved": true,
   "cs_compatible": true,
