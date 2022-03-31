@@ -8,11 +8,11 @@
       "visible": true,
       "image": null,
       "uuid": "59811602-084e-445b-bc23-edd5da152945",
-      "id": 38,
+      "id": 100,
       "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-      "createDate": 1645111032.711916,
+      "createDate": 1648705962.182592,
       "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-      "modifyDate": 1645111032.711916,
+      "modifyDate": 1648705962.182592,
       "recordTags": [],
       "deletedAt": null,
       "workflows": [
@@ -102,11 +102,11 @@
             "Blocklist.de",
             "blocklist_de-feed"
           ],
-          "id": "581",
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1646201781.311333,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1646201894.756026,
+          "id": "1001",
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1648705962.184164,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1648705962.184164,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
@@ -245,15 +245,6 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Fetch Indicators -> Copy of Configuration",
-              "targetStep": "/api/3/workflow_steps/f92d974c-dc00-4533-9506-c27448bd2ae3",
-              "sourceStep": "/api/3/workflow_steps/b99b529f-8b01-4f42-81b0-f3fc535e3494",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "5d9090a9-7aec-480e-8c59-95419b5c6e02"
-            },
-            {
-              "@type": "WorkflowRoute",
               "name": "Is data only for mapping -> Return Sample Data",
               "targetStep": "/api/3/workflow_steps/2ee05865-eb92-4bd7-8850-3cb6d1fabb09",
               "sourceStep": "/api/3/workflow_steps/a6ec9ea6-83a2-464c-a30e-34b80a4e21f1",
@@ -263,12 +254,21 @@
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> Configuration",
-              "targetStep": "/api/3/workflow_steps/7fc37824-d7ed-4dc5-a181-a31186984e97",
-              "sourceStep": "/api/3/workflow_steps/41851326-186c-48bd-8a3d-bb5e91fcb1ab",
+              "name": "Configuration -> Is data only for mapping",
+              "targetStep": "/api/3/workflow_steps/a6ec9ea6-83a2-464c-a30e-34b80a4e21f1",
+              "sourceStep": "/api/3/workflow_steps/7fc37824-d7ed-4dc5-a181-a31186984e97",
               "label": null,
               "isExecuted": false,
-              "uuid": "7cd64cb9-f3b7-4a27-8c1d-4f7826a592cc"
+              "uuid": "45ec02ac-1c7f-49ce-9f40-476daa0dbf76"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Fetch Indicators -> Copy of Configuration",
+              "targetStep": "/api/3/workflow_steps/f92d974c-dc00-4533-9506-c27448bd2ae3",
+              "sourceStep": "/api/3/workflow_steps/b99b529f-8b01-4f42-81b0-f3fc535e3494",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "5d9090a9-7aec-480e-8c59-95419b5c6e02"
             },
             {
               "@type": "WorkflowRoute",
@@ -281,12 +281,12 @@
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Configuration -> Is data only for mapping",
-              "targetStep": "/api/3/workflow_steps/a6ec9ea6-83a2-464c-a30e-34b80a4e21f1",
-              "sourceStep": "/api/3/workflow_steps/7fc37824-d7ed-4dc5-a181-a31186984e97",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/7fc37824-d7ed-4dc5-a181-a31186984e97",
+              "sourceStep": "/api/3/workflow_steps/41851326-186c-48bd-8a3d-bb5e91fcb1ab",
               "label": null,
               "isExecuted": false,
-              "uuid": "45ec02ac-1c7f-49ce-9f40-476daa0dbf76"
+              "uuid": "7cd64cb9-f3b7-4a27-8c1d-4f7826a592cc"
             }
           ],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -297,11 +297,11 @@
             "Blocklist.de",
             "blocklist_de-feed"
           ],
-          "id": "409",
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1645424946.969751,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1646198941.756578,
+          "id": "1002",
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1648705962.185306,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1648705962.185306,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
@@ -322,7 +322,7 @@
             "service"
           ],
           "synchronous": false,
-          "lastModifyDate": 1646199043,
+          "lastModifyDate": 1648707084,
           "collection": "/api/3/workflow_collections/59811602-084e-445b-bc23-edd5da152945",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/77df9201-a09d-449b-8cb2-769c148a9a0d",
@@ -367,44 +367,6 @@
             },
             {
               "@type": "WorkflowStep",
-              "name": "Create Record",
-              "description": null,
-              "arguments": {
-                "for_each": {
-                  "item": "{{vars.input.params.ingestedData}}",
-                  "__bulk": true,
-                  "parallel": false,
-                  "condition": "",
-                  "batch_size": 100
-                },
-                "resource": {
-                  "tLP": "{% if vars.tlp %}{{ vars.tlp | resolveRange(vars.tlp_map)}}{% endif %}",
-                  "value": "{{vars.item }}",
-                  "source": "Blocklist.de",
-                  "__replace": "false",
-                  "expiresOn": "{{ arrow.get().int_timestamp + (vars.expiry | int)*24*60*60 }}",
-                  "confidence": "{% if vars.confidence %}{{ vars.confidence }}{% else %}{{ vars.item.labels[2].split(\"-\")[-1] }}{% endif %}",
-                  "reputation": "{% if vars.reputation %}{{ vars.reputation | resolveRange(vars.reputation_map)}}{% else %}{{ vars.item.labels[1].split(\"-\")[-1] | resolveRange(vars.reputation_map) }}{% endif %}",
-                  "sourceData": "{{vars.item}}",
-                  "typeOfFeed": "/api/3/picklists/b788efc2-dadb-4448-9018-043b37266de4"
-                },
-                "_showJson": false,
-                "operation": "Overwrite",
-                "collection": "/api/3/upsert/threat_intel_feeds",
-                "__recommend": [],
-                "fieldOperation": {
-                  "recordTags": "Overwrite"
-                },
-                "step_variables": []
-              },
-              "status": null,
-              "top": "435",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
-              "uuid": "2857f777-a8db-4ab4-aac4-bbb69f9e904d"
-            },
-            {
-              "@type": "WorkflowStep",
               "name": "Resolve Range",
               "description": null,
               "arguments": {
@@ -416,6 +378,41 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "uuid": "bf219d24-cf42-440e-926c-a9434b92de68"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Record",
+              "description": null,
+              "arguments": {
+                "when": "{{vars.input.params.ingestedData | length > 0}}",
+                "for_each": {
+                  "item": "{{vars.input.params.ingestedData}}",
+                  "__bulk": true,
+                  "parallel": false,
+                  "condition": "",
+                  "batch_size": 100
+                },
+                "resource": {
+                  "tLP": "{% if vars.tlp %}{{ vars.tlp | resolveRange(vars.tlp_map)}}{% endif %}",
+                  "value": "{{vars.item}}",
+                  "source": "Blocklist.de",
+                  "__replace": "",
+                  "expiresOn": "{{ arrow.get().int_timestamp + (vars.expiry | int)*24*60*60 }}",
+                  "confidence": "{% if vars.confidence %}{{ vars.confidence }}{% else %}{{ vars.item.labels[2].split(\"-\")[-1] }}{% endif %}",
+                  "reputation": "{% if vars.reputation %}{{ vars.reputation | resolveRange(vars.reputation_map)}}{% else %}{{ vars.item.labels[1].split(\"-\")[-1] | resolveRange(vars.reputation_map) }}{% endif %}",
+                  "sourceData": "{{vars.item | toJSON}}",
+                  "typeOfFeed": "/api/3/picklists/b788efc2-dadb-4448-9018-043b37266de4"
+                },
+                "_showJson": false,
+                "collection": "/api/ingest-feeds/threat_intel_feeds",
+                "__recommend": [],
+                "step_variables": []
+              },
+              "status": null,
+              "top": "435",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/7b221880-716b-4726-a2ca-5e568d330b3e",
+              "uuid": "e6591562-a5a2-430f-8ae3-1288fbf87cf9"
             }
           ],
           "routes": [
@@ -430,21 +427,21 @@
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Resolve Range -> Create Record",
-              "targetStep": "/api/3/workflow_steps/2857f777-a8db-4ab4-aac4-bbb69f9e904d",
-              "sourceStep": "/api/3/workflow_steps/bf219d24-cf42-440e-926c-a9434b92de68",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "916b9550-13fa-4d5f-b7c9-9c932a7849d9"
-            },
-            {
-              "@type": "WorkflowRoute",
               "name": "Start -> Configuration",
               "targetStep": "/api/3/workflow_steps/6c01a627-5c12-4404-a283-33b2d223485f",
               "sourceStep": "/api/3/workflow_steps/77df9201-a09d-449b-8cb2-769c148a9a0d",
               "label": null,
               "isExecuted": false,
               "uuid": "d04aad07-25c6-4b11-bf5e-1dfe962ee48f"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Resolve Range -> te",
+              "targetStep": "/api/3/workflow_steps/e6591562-a5a2-430f-8ae3-1288fbf87cf9",
+              "sourceStep": "/api/3/workflow_steps/bf219d24-cf42-440e-926c-a9434b92de68",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "d91a7c17-399f-4bdb-9f1b-990391871d10"
             }
           ],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -455,11 +452,11 @@
             "Blocklist.de",
             "blocklist_de-feed"
           ],
-          "id": "360",
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1645168763.64247,
+          "id": "1003",
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1648705962.186197,
           "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1646199042.86901,
+          "modifyDate": 1648707084.051679,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
@@ -551,11 +548,11 @@
             "Blocklist.de",
             "blocklist_de-feed"
           ],
-          "id": "359",
+          "id": "1004",
           "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1645111032.712118,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645525287.459001,
+          "createDate": 1648705962.186906,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1648705962.186906,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
@@ -695,24 +692,6 @@
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Get Macro Value -> Extract Value from Response",
-              "targetStep": "/api/3/workflow_steps/77ad5c75-f14b-4886-8d26-78b51e86933c",
-              "sourceStep": "/api/3/workflow_steps/d8cdd1b5-80d8-4520-9777-6a3e55ddf0b4",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "b24ed6d6-f20c-4792-add9-43b311cdd5a8"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Configuration",
-              "targetStep": "/api/3/workflow_steps/53c41fc4-68b9-427a-800d-9c7e0fef618c",
-              "sourceStep": "/api/3/workflow_steps/983b8ade-34c7-4c48-bdb5-0049088a8405",
-              "label": null,
-              "isExecuted": false,
-              "uuid": "f8844af6-9e21-4425-bf48-2393f0baabce"
-            },
-            {
-              "@type": "WorkflowRoute",
               "name": "Extract Value from Response -> Fetch indicators1",
               "targetStep": "/api/3/workflow_steps/6ec850da-364c-470e-ba04-cac9e8070733",
               "sourceStep": "/api/3/workflow_steps/77ad5c75-f14b-4886-8d26-78b51e86933c",
@@ -722,12 +701,30 @@
             },
             {
               "@type": "WorkflowRoute",
+              "name": "Get Macro Value -> Extract Value from Response",
+              "targetStep": "/api/3/workflow_steps/77ad5c75-f14b-4886-8d26-78b51e86933c",
+              "sourceStep": "/api/3/workflow_steps/d8cdd1b5-80d8-4520-9777-6a3e55ddf0b4",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "b24ed6d6-f20c-4792-add9-43b311cdd5a8"
+            },
+            {
+              "@type": "WorkflowRoute",
               "name": "Fetch indicators1 -> Update Pull Time",
               "targetStep": "/api/3/workflow_steps/6f136cf0-6157-412b-b014-4583bfa50477",
               "sourceStep": "/api/3/workflow_steps/6ec850da-364c-470e-ba04-cac9e8070733",
               "label": null,
               "isExecuted": false,
               "uuid": "f1325f4a-1bdd-40d2-88d1-6d1c34d5f654"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/53c41fc4-68b9-427a-800d-9c7e0fef618c",
+              "sourceStep": "/api/3/workflow_steps/983b8ade-34c7-4c48-bdb5-0049088a8405",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "f8844af6-9e21-4425-bf48-2393f0baabce"
             }
           ],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
@@ -738,11 +735,11 @@
             "Blocklist.de",
             "blocklist_de-feed"
           ],
-          "id": "361",
-          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "createDate": 1645168763.758837,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645595500.505635,
+          "id": "1005",
+          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "createDate": 1648705962.187588,
+          "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
+          "modifyDate": 1648705962.187588,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null
