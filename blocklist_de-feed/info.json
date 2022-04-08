@@ -1,13 +1,13 @@
 {
   "name": "blocklist_de-feed",
   "label": "Blocklist.de Feed",
-  "description": "Blocklist.de is a free and voluntary service provided by a Fraud/Abuse-specialist, whose servers are often attacked via SSH-, Mail-Login-, FTP-, Webserver- and other services. This connector facilitates automated operations related to fetching the list of blocklisted IP addresses of services and ingestion of daily threat feeds. This connector has a dependency on the <a href=\"/content-hub/all-content/?contentType=solutionpack&amp;tag=ThreatIntelManagement\" target=\"_blank\" rel=\"noopener\">Threat Intel Management Solution Pack</a>. Install the Solution Pack before enabling ingestion of Threat Feeds from this source.",
+  "description": "Blocklist.de is a free and voluntary service provided by a Fraud/Abuse-specialist, whose servers are often attacked via SSH-, Mail-Login-, FTP-, Webserver- and other services. This connector facilitates automated operations related to fetching the list of blocklisted IP addresses of services and ingestion of daily threat feeds.<br></br> This connector has a dependency on the <a href=\"/content-hub/all-content/?contentType=solutionpack&amp;tag=ThreatIntelManagement\" target=\"_blank\" rel=\"noopener\">Threat Intel Management Solution Pack</a>. Install the Solution Pack before enabling ingestion of Threat Feeds from this source.",
   "publisher": "Fortinet",
   "cs_approved": true,
   "cs_compatible": true,
   "version": "1.0.0",
   "category": "Threat Intelligence",
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/blocklist-de-feed/247/blocklist-de-feed-v1-0-0",
   "icon_small_name": "BlockList_de_32x32.png",
   "icon_large_name": "BlockList_de_80x80.png",
   "ingestion_supported": true,
@@ -34,7 +34,7 @@
         "visible": true,
         "placeholder": "https://api.blocklist.de",
         "value": "https://api.blocklist.de",
-        "description": "Server URL of the Blocklist.de Feed Security server to which you will connect and perform the automated operations."
+        "description": "Review the server URL of the Blocklist.de Feed Security server to which you will connect and retrieve data."
       },
       {
         "title": "Verify SSL",
@@ -44,7 +44,7 @@
         "editable": true,
         "visible": true,
         "value": true,
-        "description": "Specifies whether the SSL certificate for the server is to be verified or not. By default, this option is set as True."
+        "description": "Specifies whether the SSL certificate for the server is to be verified or not."
       }
     ]
   },
@@ -54,7 +54,7 @@
       "title": "Fetch Indicators",
       "category": "investigation",
       "annotation": "fetch_indicators",
-      "description": "Fetched IPs added after the time specified as \"Added After\". Defaults to the IPs added in the last 48 hours.",
+      "description": "Retrieves a list of all IP addresses from Blocklist.de Feed that are added after the time you have specified. Defaults to the IP addresses added in the last 48 hours.",
       "parameters": [
         {
           "title": "Added After",
@@ -64,7 +64,7 @@
           "editable": true,
           "type": "datetime",
           "tooltip": "To get only the last added IP-Addresses. Default: last 48 hours",
-          "description": "Specify time to get only the last added IP-Addresses. Supported Service Types are: SSH, Mail, Apache, IMAP, FTP, Bots and VOIP. Default last 48 hours IPs reported."
+          "description": "Specify the DateTime after which you want to retrieve the IP addresses from Blocklist.de Feed."
         },
         {
           "title": "Service Type",
@@ -82,7 +82,7 @@
             "Bots",
             "VOIP"
           ],
-          "description": "Select Blocklist.de service type to fetch specific service block listed IPs. You can choose between SSH, Mail, Apache, IMAP, FTP, Bots, and VOIP."
+          "description": "Select the service type for which you want to retrieve the service block listed IP addresses from Blocklist.de Feed. You can choose between SSH, Mail, Apache, IMAP, FTP, Bots, and VOIP. If you do not select a service type then IP addresses for all services are retrieved from Blocklist.de Feed."
         },
         {
           "title": "Process Response As",
@@ -96,13 +96,13 @@
             "Return as a JSON"
           ],
           "value": "Return as a JSON",
-          "tooltip": "Select the method of returning the Feed Data information. You can choose between the data being create as Feed records in FortiSOAR or returned in the JSON format (Return as a JSON).",
-          "description": "Select the method of returning the Feed Data information. You can choose between the data being create as Feed records in FortiSOAR or returned in the JSON format (Return as a JSON).",
+          "tooltip": "Select the method of returning the Feed Data information. You can choose between the data being created as \"Feed records\" in FortiSOAR (the Create as Feed Records in FortiSOAR option) or data being returned in the JSON format (the Return as a JSON option).",
+          "description": "Select the method of returning the Feed Data information. You can choose between the data being created as \"Feed records\" in FortiSOAR (the Create as Feed Records in FortiSOAR option) or data being returned in the JSON format (the Return as a JSON option). \nIf you choose the 'Create as Feed Records in FortiSOAR' option, then in the Record Creation Playbook IRI field, specify the IRI of the playbook that creates feed records in FortiSOAR.",
           "onchange": {
             "Create as Feed Records in FortiSOAR": [
               {
                 "title": "Record Creation Playbook IRI",
-                "description": "",
+                "description": "Specify the IRI of the playbook that creates feed records in FortiSOAR.",
                 "type": "text",
                 "name": "create_pb_id",
                 "required": true,
@@ -121,7 +121,7 @@
       "title": "Fetch All Blocklist IPs",
       "category": "investigation",
       "annotation": "get_ips_by_service",
-      "description": "Fetch list of IPs having run attacks on the service from the Blocklist.de.",
+      "description": "Retrieves a list of all IP addresses that are having run attacks on the service from Blocklist.de",
       "parameters": [
         {
           "title": "Service Type",
@@ -144,7 +144,7 @@
             "Brute Force Login"
           ],
           "value": "Bots",
-          "description": "Select Blocklist.de service type to fetch specific service block listed IPs. You can choose between All, SSH, Mail, Apache, IMAP, FTP, SIP, IRC Bot, Bots, Strong IPs and Brute Force Login. By default, this is set to Bots."
+          "description": "Select the service type for which you want to retrieve the service block listed IP addresses from Blocklist.de Feed. You can choose between All, SSH, Mail, Apache, IMAP, FTP, SIP, IRC Bot, Bots, Strong IPs, and Brute Force Login. By default, this is set as Bots"
         },
         {
           "title": "Process Response As",
@@ -158,13 +158,13 @@
             "Return as a JSON"
           ],
           "value": "Return as a JSON",
-          "tooltip": "Select the method of returning the Feed Data information. You can choose between the data being create as Feed records in FortiSOAR or returned in the JSON format (Return as a JSON).",
-          "description": "Select the method of returning the Feed Data information. You can choose between the data being create as Feed records in FortiSOAR or returned in the JSON format (Return as a JSON).",
+          "tooltip": "Select the method of returning the Feed Data information. You can choose between the data being created as \"Feed records\" in FortiSOAR (the Create as Feed Records in FortiSOAR option) or data being returned in the JSON format (the Return as a JSON option).",
+          "description": "Select the method of returning the Feed Data information. You can choose between the data being created as \"Feed records\" in FortiSOAR (the Create as Feed Records in FortiSOAR option) or data being returned in the JSON format (the Return as a JSON option). \nIf you choose the 'Create as Feed Records in FortiSOAR' option, then in the Record Creation Playbook IRI field, specify the IRI of the playbook that creates feed records in FortiSOAR",
           "onchange": {
             "Create as Feed Records in FortiSOAR": [
               {
                 "title": "Record Creation Playbook IRI",
-                "description": "",
+                "description": "Specify the IRI of the playbook that creates feed records in FortiSOAR.",
                 "type": "text",
                 "name": "create_pb_id",
                 "required": true,
